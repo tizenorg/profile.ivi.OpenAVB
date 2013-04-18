@@ -63,5 +63,6 @@ AC_FUNC_STRNLEN
 AC_CHECK_FUNCS([ftruncate gettimeofday isascii memset munmap pow select socket strchr strdup strerror strstr strtol])
 
 AC_CONFIG_FILES([Makefile
-                 kmod/Makefile])
+                 kmod/Makefile
+                 igb.pc])
 AC_OUTPUT
