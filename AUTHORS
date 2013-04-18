@@ -1,0 +1,2 @@
+See "git log --format='%an <%ae>' | sort -u" for a list of authors
+and contributors.
