@@ -319,7 +319,7 @@ DEPVER := $(shell /sbin/depmod -V 2>/dev/null | \
 $(MANFILE).gz: $(MANFILE)
 	gzip -c $< > $@
 
-install: default $(MANFILE).gz
+install: default
 	# remove all old versions of the driver
 	find $(INSTALL_MOD_PATH)/lib/modules/$(KVER) -name $(TARGET) -exec rm -f {} \; || true
 	find $(INSTALL_MOD_PATH)/lib/modules/$(KVER) -name $(TARGET).gz -exec rm -f {} \; || true
@@ -333,6 +333,8 @@ else
 	/sbin/depmod -b $(INSTALL_MOD_PATH) -a -n $(KVERSION) > /dev/null || true
   endif
 endif
+
+install.man: $(MANFILE).gz
 	install -D -m 644 $(MANFILE).gz $(INSTALL_MOD_PATH)$(MANDIR)/man$(MANSECTION)/$(MANFILE).gz
 	man -c -P'cat > /dev/null' $(MANFILE:.$(MANSECTION)=) || true
 
@@ -341,6 +343,8 @@ uninstall:
 	    rm -f $(INSTDIR)/$(TARGET) ; \
 	fi
 	/sbin/depmod -a
+
+uninstall.man:
 	if [ -e $(MANDIR)/man$(MANSECTION)/$(MANFILE).gz ] ; then \
 		rm -f $(MANDIR)/man$(MANSECTION)/$(MANFILE).gz ; \
 	fi
