@@ -1,5 +1,12 @@
 %{!?_with_debug:%{!?_without_debug:%define _without_debug 0}}
 
+%define kernel kernel-x86-ivi
+%define kernel_relstr "%(/bin/rpm -q --queryformat '%{VERSION}-%{RELEASE}' %{kernel})"
+%define kernel_release %(echo %{kernel_relstr})
+%define kernel_modstr "%(/bin/rpm -ql %{kernel} | sort | grep /lib/modules/%{kernel_release} | head -1 | sed 's#/*$##g')"
+%define kernel_modpath %(echo %{kernel_modstr})
+%define kernel_moddir  %(echo %{kernel_modstr} | sed 's#.*/##g')
+
 Summary: OpenAVB
 Name: openavb
 Version: 20130418
@@ -12,13 +19,14 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 Requires: openavb-kmod-igb
 
 BuildRequires: libstdc++-devel
-BuildRequires: kernel-x86-ivi-devel
+BuildRequires: %{kernel}-devel
 BuildRequires: pkgconfig(libpci)
 BuildRequires: pkgconfig(zlib)
 
 %package kmod-igb
 Summary: OpenAVB kernel module for Intel ethernet cards.
 Group: System Environment/Kernel
+Requires: %{kernel}-%{kernel_release}
 
 %package libigb
 Summary: igb runtime library from the OpenAVB distribution.
@@ -70,21 +78,17 @@ NUM_CPUS="`cat /proc/cpuinfo | tr -s '\t' ' ' | \
                grep '^processor *:' | wc -l`"
 [ -z "$NUM_CPUS" ] && NUM_CPUS=1
 
-BUILD_KERNEL=$(ls /lib/modules/ | grep ..... | head -1)
-
 ./bootstrap && \
     %configure $CONFIG_OPTIONS && \
-    make clean && \
-    make BUILD_KERNEL=$BUILD_KERNEL -j$(($NUM_CPUS + 1))
+    make BUILD_KERNEL=%{kernel_moddir} clean && \
+    make BUILD_KERNEL=%{kernel_moddir} -j$(($NUM_CPUS + 1))
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-BUILD_KERNEL=$(ls /lib/modules/ | grep ..... | head -1)
-
 make DESTDIR=$RPM_BUILD_ROOT \
     INSTALL_MOD_PATH=$RPM_BUILD_ROOT \
-    BUILD_KERNEL=$BUILD_KERNEL install
+    BUILD_KERNEL=%{kernel_moddir} install
 
 rm -f $RPM_BUILD_ROOT%{_libdir}/libigb.la
 
@@ -95,7 +99,7 @@ rm -rf $RPM_BUILD_ROOT
 ldconfig
 
 %post kmod-igb
-depmod -a
+depmod -a %{kernel_moddir}
 
 %files
 %defattr(-,root,root,-)
@@ -105,7 +109,7 @@ depmod -a
 
 %files kmod-igb
 %defattr(-,root,root,-)
-/lib/modules/*/kernel/drivers/net/igb_avb
+%{kernel_modpath}/kernel/drivers/net/igb_avb
 
 %files libigb
 %defattr(-,root,root,-)
