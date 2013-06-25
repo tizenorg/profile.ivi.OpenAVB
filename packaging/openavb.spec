@@ -19,7 +19,7 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 Requires: openavb-kmod-igb
 
 BuildRequires: libstdc++-devel
-BuildRequires: %{kernel}-devel
+BuildRequires: kernel-x86-ivi-devel
 BuildRequires: pkgconfig(libpci)
 BuildRequires: pkgconfig(zlib)
 
