@@ -1,0 +1,11 @@
+[Unit]
+Description=OpenAVB MMRP/MVRP/MSRP daemon
+After=network.target
+
+[Service]
+EnvironmentFile=/etc/sysconfig/openavb
+ExecStart=/usr/sbin/mrpd -mvs -i $AVB_IFNAME -l
+Type=simple
+
+[Install]
+WantedBy=multi-user.target
