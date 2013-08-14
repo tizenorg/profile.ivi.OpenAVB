@@ -1,0 +1,11 @@
+[Unit]
+Description=OpenAVB GPTP daemon
+After=network.target
+
+[Service]
+EnvironmentFile=/etc/sysconfig/openavb
+ExecStart=/usr/sbin/daemon_cl $AVB_IFNAME
+Type=simple
+
+[Install]
+WantedBy=multi-user.target
