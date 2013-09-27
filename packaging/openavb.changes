@@ -1,6 +1,11 @@
-* Mon Apr 15 10:20:28 EEST 2013 Krisztian Litkey <krisztian.litkey@intel.com> - 20130418
-- Preliminary packaging for tizen.
+* Fri Sep 27 11:12:30 EEST 2013 Krisztian Litkey <krisztian.litkey@intel.com> - 20130418
+- Allow passing flags to kernel module compilation.
+- Compile kernel module with -DIGB_PTP.
+- Fixes TIVI-1875 (https://bugs.tizen.org/jira/browse/TIVI-1875).
 
 * Wed Aug 14 10:20:28 EEST 2013 Krisztian Litkey <krisztian.litkey@intel.com> - 20130814
 - Rebased on upstream 41a0ca76 to compile on 3.10.4.
 - Packaging fixes to reduce rpmlint badness below the allowed threshold.
+
+* Mon Apr 15 10:20:28 EEST 2013 Krisztian Litkey <krisztian.litkey@intel.com> - 20130418
+- Preliminary packaging for tizen.
