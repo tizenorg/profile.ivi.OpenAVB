@@ -1,5 +1,5 @@
 all:
-	$(MAKE) -C igb
+	$(MAKE) V=1 -C igb $(IGB_KMOD_BUILD_FLAGS)
 
 install:
 	$(MAKE) -C igb install

@@ -62,6 +62,14 @@ AC_FUNC_REALLOC
 AC_FUNC_STRNLEN
 AC_CHECK_FUNCS([ftruncate gettimeofday isascii memset munmap pow select socket strchr strdup strerror strstr strtol])
 
+# Check if any flags need to be passed on to the kernel module build.
+AC_ARG_ENABLE(kmod-flags,
+              [  --enable-kmod-flags      pass the given flags to the module build process],
+	      [IGB_KMOD_BUILD_FLAGS="$enableval"], [])
+
+AC_SUBST(IGB_KMOD_BUILD_FLAGS)
+
+
 AC_CONFIG_FILES([Makefile
                  kmod/Makefile
                  igb.pc])
