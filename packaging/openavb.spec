@@ -80,8 +80,10 @@ NUM_CPUS="`cat /proc/cpuinfo | tr -s '\t' ' ' | \
                grep '^processor *:' | wc -l`"
 [ -z "$NUM_CPUS" ] && NUM_CPUS=1
 
+CONFIG_OPTIONS="--enable-kmod-flags=EXTRA_CFLAGS=-DIGB_PTP"
+
 ./bootstrap && \
-    %configure $CONFIG_OPTIONS && \
+    %configure $CONFIG_OPTIONS  && \
     make BUILD_KERNEL=%{kernel_moddir} clean && \
     make BUILD_KERNEL=%{kernel_moddir} -j$(($NUM_CPUS + 1))
 
