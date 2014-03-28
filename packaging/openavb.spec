@@ -98,11 +98,14 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/libigb.la
 
 # Install systemd and sample 'configuration' files.
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig \
-    $RPM_BUILD_ROOT/lib/systemd/system
+    $RPM_BUILD_ROOT/lib/systemd/system \
+    %{buildroot}/%{_sysconfdir}/modprobe.d
 /usr/bin/install -m 644 packaging/openavb.env \
     $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/openavb
 /usr/bin/install -m 644 -t $RPM_BUILD_ROOT/lib/systemd/system \
     packaging/mrpd.service packaging/gptp.service
+/usr/bin/install -m 644 packaging/igb_avb.conf \
+    %{buildroot}/%{_sysconfdir}/modprobe.d
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -128,6 +131,7 @@ depmod -a %{kernel_moddir}
 %files kmod-igb
 %defattr(-,root,root,-)
 %{kernel_modpath}/kernel/drivers/net/igb_avb
+%config(noreplace)%{_sysconfdir}/modprobe.d/igb_avb.conf
 
 %files libigb
 %defattr(-,root,root,-)
