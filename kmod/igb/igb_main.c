@@ -51,6 +51,8 @@
 #include <linux/pagemap.h>
 #include <linux/netdevice.h>
 #include <linux/tcp.h>
+#include <linux/etherdevice.h>
+
 #ifdef NETIF_F_TSO
 #include <net/checksum.h>
 #ifdef NETIF_F_TSO6
@@ -9048,7 +9050,7 @@ int igb_del_mac_filter(struct igb_adapter *adapter, u8* addr, u16 queue)
 	if (is_zero_ether_addr(addr))
 		return 0;
 	for (i = 0; i < hw->mac.rar_entry_count; i++) {
-		if (!compare_ether_addr(addr, adapter->mac_table[i].addr) &&
+		if (!ether_addr_equal(addr, adapter->mac_table[i].addr) &&
 		    adapter->mac_table[i].queue == queue) {
 			adapter->mac_table[i].state = IGB_MAC_STATE_MODIFIED;
 			memset(adapter->mac_table[i].addr, 0, ETH_ALEN);
