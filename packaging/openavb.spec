@@ -17,6 +17,7 @@ URL: https://github.com/intel-ethernet/Open-AVB
 Source0: %{name}-%{version}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 Requires: openavb-kmod-igb
+ExclusiveArch:  %ix86 x86_64
 
 BuildRequires: libstdc++-devel
 BuildRequires: kernel-x86-ivi-devel
