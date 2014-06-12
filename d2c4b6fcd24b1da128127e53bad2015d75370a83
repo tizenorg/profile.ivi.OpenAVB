@@ -1,3 +1,12 @@
+Code-Review+2: Mikko Ylinen <mikko.ylinen@intel.com>
+Verified+1: Mikko Ylinen <mikko.ylinen@intel.com>
+Code-Review+1: Stéphane Desneux (sdesneux) <stephane.desneux@open.eurogiciel.org>
+Submitted-by: Mikko Ylinen <mikko.ylinen@intel.com>
+Submitted-at: Thu, 12 Jun 2014 12:20:02 -0700
+Reviewed-on: https://review.tizen.org/gerrit/22718
+Project: profile/ivi/OpenAVB
+Branch: refs/heads/tizen
+
 Reviewed-on: https://review.tizen.org/gerrit/22718
 Project: profile/ivi/OpenAVB
 Branch: refs/heads/tizen
