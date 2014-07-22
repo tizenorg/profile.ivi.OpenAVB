@@ -319,7 +319,7 @@ DEPVER := $(shell /sbin/depmod -V 2>/dev/null | \
 $(MANFILE).gz: $(MANFILE)
 	gzip -c $< > $@
 
-install: default
+install:
 	# remove all old versions of the driver
 	find $(INSTALL_MOD_PATH)/lib/modules/$(KVER) -name $(TARGET) -exec rm -f {} \; || true
 	find $(INSTALL_MOD_PATH)/lib/modules/$(KVER) -name $(TARGET).gz -exec rm -f {} \; || true
