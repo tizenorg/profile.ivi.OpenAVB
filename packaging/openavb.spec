@@ -9,10 +9,10 @@
 
 Summary: OpenAVB
 Name: openavb
-Version: 20130814
+Version: 20140731
 Release: 1
 License: Intel and GPL-2.0
-Group: Base/Utilities
+Group: Automotive/Ethernet AVB
 URL: https://github.com/intel-ethernet/Open-AVB
 Source0: %{name}-%{version}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
