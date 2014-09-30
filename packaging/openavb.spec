@@ -20,7 +20,7 @@ Requires: openavb-kmod-igb
 ExclusiveArch:  %ix86 x86_64
 
 BuildRequires: libstdc++-devel
-BuildRequires: kernel-x86-ivi-devel
+BuildRequires: kernel-devel
 BuildRequires: pkgconfig(libpci)
 BuildRequires: pkgconfig(zlib)
 
