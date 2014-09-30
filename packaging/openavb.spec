@@ -1,6 +1,6 @@
 %{!?_with_debug:%{!?_without_debug:%define _without_debug 0}}
 
-%define kernel kernel-x86-ivi
+%define kernel "%(/bin/rpm -q --whatprovides kernel-profile-ivi)"
 %define kernel_relstr "%(/bin/rpm -q --queryformat '%{VERSION}-%{RELEASE}' %{kernel})"
 %define kernel_release %(echo %{kernel_relstr})
 %define kernel_modstr "%(/bin/rpm -ql %{kernel} | sort | grep /lib/modules/%{kernel_release} | head -1 | sed 's#/*$##g')"
@@ -19,15 +19,20 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 Requires: openavb-kmod-igb
 ExclusiveArch:  %ix86 x86_64
 
-BuildRequires: libstdc++-devel
+%ifarch %ix86
+# Temporary to address "have choice for kernel-devel"
+BuildRequires: kernel-ivi-i386-default-devel
+%else
 BuildRequires: kernel-devel
+%endif
+BuildRequires: libstdc++-devel
 BuildRequires: pkgconfig(libpci)
 BuildRequires: pkgconfig(zlib)
 
 %package kmod-igb
 Summary: kernel module for Intel ethernet cards
 Group: System/Kernel
-Requires: %{kernel} = %{kernel_release}
+Requires: kernel-profile-ivi = %{kernel_release}
 
 %package libigb
 Summary: IGB runtime library
